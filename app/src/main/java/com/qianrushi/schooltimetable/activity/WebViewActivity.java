@@ -1,4 +1,4 @@
-package com.qianrushi.schooltimetable.viewpager.fragment.timetable;
+package com.qianrushi.schooltimetable.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;

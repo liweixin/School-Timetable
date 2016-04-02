@@ -3,15 +3,14 @@ package com.qianrushi.schooltimetable.viewpager.fragment.timetable;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.qianrushi.schooltimetable.R;
+import com.qianrushi.schooltimetable.activity.SimulateLoginAcitivity;
+import com.qianrushi.schooltimetable.activity.WebViewActivity;
 
 /**
  * Created by lwx on 2016/3/28.
@@ -25,9 +24,6 @@ public class ButtonFragment extends Fragment implements View.OnClickListener{
         mView.findViewById(R.id.add_course).setOnClickListener(this);
         mView.findViewById(R.id.delete_course).setOnClickListener(this);
         mView.findViewById(R.id.edit_course).setOnClickListener(this);
-        /*FragmentManager manager = getFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction().hide(this);
-        transaction.commit();*/
         return mView;
     }
 
@@ -36,7 +32,8 @@ public class ButtonFragment extends Fragment implements View.OnClickListener{
         switch (v.getId()){
             case R.id.import_course:
                 Toast.makeText(getActivity().getApplicationContext(), "Import course", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                //Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                Intent intent = new Intent(getActivity(), SimulateLoginAcitivity.class);
                 getActivity().startActivityForResult(intent, 512);
                 break;
             case R.id.add_course:
