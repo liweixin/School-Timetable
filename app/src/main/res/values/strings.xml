@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SchoolTimeTable</string>
+    <string name="choose_school">请输入您的学校名称：</string>
+    <string name="choose_college">请输入您的学院名称：</string>
+    <string name="choose_admission_time">请输入您的入学时间：</string>
+    <string name="choose_education">请输入您的学历：</string>
+    <string name="confirm_info">请确认您的信息：</string>
+    <string name="not_complete">请输入完整的信息</string>
+</resources>
