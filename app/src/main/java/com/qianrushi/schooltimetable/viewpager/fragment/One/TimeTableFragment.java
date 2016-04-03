@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +17,12 @@ import android.widget.TextView;
 
 import com.qianrushi.schooltimetable.R;
 import com.qianrushi.schooltimetable.model.CourseInfo;
+import com.qianrushi.schooltimetable.model.EncodeAndDecode;
 import com.qianrushi.schooltimetable.model.MyCourseinfo;
 import com.qianrushi.schooltimetable.utils.Util;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by lwx on 2016/3/24.
@@ -31,21 +34,20 @@ public class TimeTableFragment extends Fragment {
     private static boolean isFirst = true;
     private View mView;
     public ButtonFragment fragment;
-
-    List<CourseInfo> courseInfoList;
+    boolean set;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         mView = inflater.inflate(R.layout.fragment_timetable, container, false);
         getSize();
-        addCourseView();
         return mView;
     }
-    private void addCourseView(){
+    public void addCourseView(){
         if(MyCourseinfo.getInstace()==null) return;
         for(CourseInfo course:MyCourseinfo.getInstace()){
                 int currentWeek = Util.getCurrentWeek();
                 if(course.getStartWeek()<=currentWeek&&currentWeek<=course.getEndWeek()){  //如果当前周要上课
+                    Log.e("add", "course");
                     addView(course.getDay(), course.getStartNum(), course.getEndNum(), course.getName() + course.getLocation());
                 }
         }
@@ -91,15 +93,6 @@ public class TimeTableFragment extends Fragment {
             }
         });
     }
-    private void addCourse(){
-            String text="算法设计基础@W3502";
-            addView(1,1,2,text);
-            addView(7,2,3,text);
-            addView(5, 9, 10, text);
-            addView(4, 2, 3, text);
-            addView(3, 5, 5, text);
-            addView(4, 10, 12, text);
-    }
     /*@Override  activity中测量布局宽和高的部分
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -110,9 +103,28 @@ public class TimeTableFragment extends Fragment {
         }
     }*/
     @Override
-    public void onResume(){
-        super.onResume();
-        addCourseView();
+    public void onStart(){
+        super.onStart();
+        if(MyCourseinfo.getInstace()!=null){
+            if(set) return;
+            set = true;
+            new Thread(new Runnable() { //需要延迟一段时间加载课表才生效 有没有改进办法
+                @Override
+                public void run() {
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(3000);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                addCourseView();
+                            }
+                        });
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
     }
     private TextView createTv(int start,int end,String text){
         TextView tv = new TextView(getContext());

@@ -2,6 +2,8 @@ package com.qianrushi.schooltimetable;
 
 import android.app.Application;
 
+import com.qianrushi.schooltimetable.model.EncodeAndDecode;
+import com.qianrushi.schooltimetable.model.MyCourseinfo;
 import com.qianrushi.schooltimetable.utils.Util;
 
 /**
@@ -12,5 +14,6 @@ public class MyApplication extends Application {
     public void onCreate(){
         super.onCreate();
         Util.getInstance().init(getApplicationContext());
+        MyCourseinfo.setCourseInfo(EncodeAndDecode.readProduct());
     }
 }

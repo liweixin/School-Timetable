@@ -139,12 +139,6 @@ public class SimulateLoginAcitivity extends AppCompatActivity {
                             }
                         }
                     }
-                    /*runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            ((TextView) findViewById(R.id.text)).setText(courseList.toString());
-                        }
-                    });*/
                     //设置返回值并退出活动
                     Intent intent = new Intent();
                     intent.putExtra("courseList", (Serializable)courseList);

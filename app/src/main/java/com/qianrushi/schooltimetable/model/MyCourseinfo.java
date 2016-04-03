@@ -2,12 +2,13 @@ package com.qianrushi.schooltimetable.model;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by lwx on 2016/4/1.
  */
-public class MyCourseinfo {
+public class MyCourseinfo implements Serializable{
     private static List<CourseInfo> courseInfoList;
     private MyCourseinfo(){};
     public static List<CourseInfo> getInstace(){

@@ -27,6 +27,7 @@ import android.widget.RelativeLayout;
 
 import com.qianrushi.schooltimetable.R;
 import com.qianrushi.schooltimetable.model.CourseInfo;
+import com.qianrushi.schooltimetable.model.EncodeAndDecode;
 import com.qianrushi.schooltimetable.model.MyCourseinfo;
 import com.qianrushi.schooltimetable.viewpager.fragment.Three.TestFragment;
 import com.qianrushi.schooltimetable.viewpager.fragment.Two.GradeFragment;
@@ -257,6 +258,8 @@ public class HomeActivity extends FragmentActivity implements OnClickListener, A
             case 512:
                 List<CourseInfo> courseInfoList = (List<CourseInfo>) intent.getSerializableExtra("courseList");
                 MyCourseinfo.setCourseInfo(courseInfoList);//update my courseInfo
+                ((TimeTableFragment)fragmentList.get(0)).addCourseView();
+                EncodeAndDecode.saveProduct(courseInfoList);
                 break;
             case 100:
                 ((MoreFragment)fragmentList.get(3)).onScanResult(resultCode, intent);
