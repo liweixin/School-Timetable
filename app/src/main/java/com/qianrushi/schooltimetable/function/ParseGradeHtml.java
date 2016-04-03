@@ -4,14 +4,13 @@ import android.util.Log;
 
 import com.qianrushi.schooltimetable.model.GradeInfo;
 import com.qianrushi.schooltimetable.model.MyGradeInfoList;
-import com.qianrushi.schooltimetable.viewpager.fragment.Four.FourFragment;
+import com.qianrushi.schooltimetable.viewpager.fragment.Two.GradeFragment;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ import java.util.List;
 public class ParseGradeHtml {
     private static ParseGradeHtml parseGradeHtml;
     String html;
-    FourFragment callback;
+    GradeFragment callback;
     private ParseGradeHtml(){}
     public static ParseGradeHtml getInstance(){
         if(parseGradeHtml==null){
@@ -28,7 +27,7 @@ public class ParseGradeHtml {
         }
         return parseGradeHtml;
     }
-    public void init(FourFragment callback){
+    public void init(GradeFragment callback){
         this.callback = callback;
         html = SimulateLogin.getInstance().getGradeHtml(this);
     }

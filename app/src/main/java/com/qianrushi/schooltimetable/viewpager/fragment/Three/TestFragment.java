@@ -1,4 +1,4 @@
-package com.qianrushi.schooltimetable.viewpager.fragment.Four;
+package com.qianrushi.schooltimetable.viewpager.fragment.Three;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.qianrushi.schooltimetable.R;
-import com.qianrushi.schooltimetable.function.ParseGradeHtml;
+import com.qianrushi.schooltimetable.function.ParseTestHtml;
 import com.qianrushi.schooltimetable.function.SimulateLogin;
-import com.qianrushi.schooltimetable.model.GradeInfo;
-import com.qianrushi.schooltimetable.model.MyGradeInfoList;
+import com.qianrushi.schooltimetable.model.MyTestInfoList;
+import com.qianrushi.schooltimetable.model.TestInfo;
 import com.qianrushi.schooltimetable.utils.Util;
 
 import java.util.List;
@@ -22,14 +22,14 @@ import java.util.List;
 /**
  * Created by lwx on 2016/3/24.
  */
-public class FourFragment extends Fragment {
+public class TestFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     View rootView;
-    GradeAdapter adapter;
+    TestAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
-        rootView = inflater.inflate(R.layout.layout4, container, false);
+        rootView = inflater.inflate(R.layout.fragment_test, container, false);
         return rootView;
     }
     @Override
@@ -41,7 +41,7 @@ public class FourFragment extends Fragment {
     public void onResume(){
         super.onResume();
         if(SimulateLogin.hasLogin()){
-            ParseGradeHtml.getInstance().init(this);
+            ParseTestHtml.getInstance().init(this);
         }
     }
     public void notifyDataSetChanged(){
@@ -55,20 +55,20 @@ public class FourFragment extends Fragment {
         });
     }
     public void initRecyclerView() {
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.grade_info);;
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.test_info);;
         layoutManager = new LinearLayoutManager(Util.getInstance().getContext());
         //layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
         setAdapter();
     }
     public void setAdapter() {
-        MyGradeInfoList myGradeInfoList = MyGradeInfoList.getInstance();
-        List<GradeInfo> gradeInfoList = myGradeInfoList.getList();
-        Log.e("gradeInfoList.size()", gradeInfoList.size()+"");
-        recyclerView.setAdapter(adapter = new GradeAdapter(gradeInfoList));
-        adapter.setmOnItemClickListener(new GradeOnItemClickListener() {
+        MyTestInfoList myTestInfoList = MyTestInfoList.getInstance();
+        List<TestInfo> testInfoList = myTestInfoList.getList();
+        Log.e("gradeInfoList.size()", testInfoList.size()+"");
+        recyclerView.setAdapter(adapter = new TestAdapter(testInfoList));
+        adapter.setmOnItemClickListener(new TestOnItemClickListener() {
             @Override
-            public void onItemClick(View view, GradeInfo item) {
+            public void onItemClick(View view, TestInfo item) {
                 Util.getInstance().toast(item.getCourseName() + " pressed.", Toast.LENGTH_SHORT);
                 //int i = myGradeInfoList.getList().indexOf(item);
             }

@@ -1,4 +1,4 @@
-package com.qianrushi.schooltimetable.viewpager.fragment.Four;
+package com.qianrushi.schooltimetable.viewpager.fragment.Two;
 
 import android.content.Context;
 import android.content.res.TypedArray;

@@ -1,12 +1,10 @@
-package com.qianrushi.schooltimetable.viewpager.fragment.timetable;
+package com.qianrushi.schooltimetable.viewpager.fragment.One;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;

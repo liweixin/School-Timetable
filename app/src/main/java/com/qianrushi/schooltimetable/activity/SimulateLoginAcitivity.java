@@ -68,7 +68,7 @@ public class SimulateLoginAcitivity extends AppCompatActivity {
         testInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                simulateLogin.getTestHtml();
+                //simulateLogin.getTestHtml();
             }
         });
     }

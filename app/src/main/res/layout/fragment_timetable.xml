@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
         <fragment
             android:id="@+id/fragment"
-            android:name="com.qianrushi.schooltimetable.viewpager.fragment.timetable.BlankFragment"
+            android:name="com.qianrushi.schooltimetable.viewpager.fragment.One.BlankFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </FrameLayout>

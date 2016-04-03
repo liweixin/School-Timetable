@@ -1,4 +1,4 @@
-package com.qianrushi.schooltimetable.viewpager;
+package com.qianrushi.schooltimetable.activity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,16 +25,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.google.gson.Gson;
 import com.qianrushi.schooltimetable.R;
 import com.qianrushi.schooltimetable.model.CourseInfo;
-import com.qianrushi.schooltimetable.model.CourseList;
 import com.qianrushi.schooltimetable.model.MyCourseinfo;
-import com.qianrushi.schooltimetable.utils.Util;
-import com.qianrushi.schooltimetable.viewpager.fragment.Four.FourFragment;
-import com.qianrushi.schooltimetable.viewpager.fragment.timetable.TimeTableFragment;
-import com.qianrushi.schooltimetable.viewpager.fragment.Three.ThreeFragment;
-import com.qianrushi.schooltimetable.viewpager.fragment.Two.TwoFragment;
+import com.qianrushi.schooltimetable.viewpager.fragment.Three.TestFragment;
+import com.qianrushi.schooltimetable.viewpager.fragment.Two.GradeFragment;
+import com.qianrushi.schooltimetable.viewpager.fragment.Four.MoreFragment;
+import com.qianrushi.schooltimetable.viewpager.fragment.One.TimeTableFragment;
 
 public class HomeActivity extends FragmentActivity implements OnClickListener, AppCompatCallback {
 
@@ -59,9 +56,9 @@ public class HomeActivity extends FragmentActivity implements OnClickListener, A
      * 四个Fragment（页面）
      */
     TimeTableFragment timeTableFragment;
-    TwoFragment twoFragment;
-    ThreeFragment threeFragment;
-    FourFragment fourFragment;
+    GradeFragment gradeFragment;
+    TestFragment testFragment;
+    MoreFragment moreFragment;
 
     //覆盖层
     ImageView imageviewOvertab;
@@ -99,14 +96,14 @@ public class HomeActivity extends FragmentActivity implements OnClickListener, A
 
         fragmentList=new ArrayList<Fragment>();
         timeTableFragment =new TimeTableFragment();
-        twoFragment=new TwoFragment();
-        threeFragment=new ThreeFragment();
-        fourFragment=new FourFragment();
+        gradeFragment=new GradeFragment();
+        testFragment =new TestFragment();
+        moreFragment=new MoreFragment();
 
         fragmentList.add(timeTableFragment);
-        fragmentList.add(twoFragment);
-        fragmentList.add(threeFragment);
-        fragmentList.add(fourFragment);
+        fragmentList.add(gradeFragment);
+        fragmentList.add(testFragment);
+        fragmentList.add(moreFragment);
 
         screenWidth=getResources().getDisplayMetrics().widthPixels;
 
@@ -262,7 +259,7 @@ public class HomeActivity extends FragmentActivity implements OnClickListener, A
                 MyCourseinfo.setCourseInfo(courseInfoList);//update my courseInfo
                 break;
             case 100:
-                ((ThreeFragment)fragmentList.get(2)).result(resultCode, intent);
+                ((MoreFragment)fragmentList.get(3)).onScanResult(resultCode, intent);
                 break;
         }
     }

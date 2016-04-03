@@ -1,4 +1,4 @@
-package com.qianrushi.schooltimetable.viewpager.fragment.timetable;
+package com.qianrushi.schooltimetable.viewpager.fragment.One;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

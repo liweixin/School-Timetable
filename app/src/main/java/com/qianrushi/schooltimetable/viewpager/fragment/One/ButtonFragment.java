@@ -1,4 +1,4 @@
-package com.qianrushi.schooltimetable.viewpager.fragment.timetable;
+package com.qianrushi.schooltimetable.viewpager.fragment.One;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.qianrushi.schooltimetable.R;
 import com.qianrushi.schooltimetable.activity.SimulateLoginAcitivity;
-import com.qianrushi.schooltimetable.activity.WebViewActivity;
 
 /**
  * Created by lwx on 2016/3/28.

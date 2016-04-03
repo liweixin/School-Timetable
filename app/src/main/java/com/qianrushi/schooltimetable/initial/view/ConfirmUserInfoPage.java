@@ -11,7 +11,7 @@ import com.qianrushi.schooltimetable.R;
 import com.qianrushi.schooltimetable.base.BaseActivity;
 import com.qianrushi.schooltimetable.model.UserInfo;
 import com.qianrushi.schooltimetable.initial.presenter.ConfirmInfo;
-import com.qianrushi.schooltimetable.viewpager.HomeActivity;
+import com.qianrushi.schooltimetable.activity.HomeActivity;
 
 /**
  * Created by lwx on 2016/3/27.

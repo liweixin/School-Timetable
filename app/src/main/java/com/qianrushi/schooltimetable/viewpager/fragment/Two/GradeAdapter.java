@@ -1,4 +1,4 @@
-package com.qianrushi.schooltimetable.viewpager.fragment.Four;
+package com.qianrushi.schooltimetable.viewpager.fragment.Two;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

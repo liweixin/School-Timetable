@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.qianrushi.schooltimetable.model.CourseList;
 import com.qianrushi.schooltimetable.model.MyCourseinfo;
-import com.qianrushi.schooltimetable.viewpager.fragment.Three.ThreeFragment;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;

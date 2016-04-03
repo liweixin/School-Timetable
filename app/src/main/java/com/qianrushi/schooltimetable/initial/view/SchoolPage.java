@@ -3,7 +3,6 @@ package com.qianrushi.schooltimetable.initial.view;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +12,7 @@ import com.qianrushi.schooltimetable.R;
 import com.qianrushi.schooltimetable.base.BaseActivity;
 import com.qianrushi.schooltimetable.initial.presenter.ISetSchool;
 import com.qianrushi.schooltimetable.initial.presenter.SetSchool;
-import com.qianrushi.schooltimetable.viewpager.HomeActivity;
+import com.qianrushi.schooltimetable.activity.HomeActivity;
 
 /**
  * Created by lwx on 2016/3/27.

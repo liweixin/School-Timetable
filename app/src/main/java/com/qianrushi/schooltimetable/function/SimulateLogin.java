@@ -71,10 +71,10 @@ public class SimulateLogin {
         }
         return gradeHtml;
     }
-    public String getTestHtml(){
+    public String getTestHtml(ParseTestHtml callback){
         if(!login) throw new IllegalStateException("请求数据前必须登录");
         if (testHtml==null) {
-            initSearchTestInfo();
+            initSearchTestInfo(callback);
         }
         return testHtml;
     }
@@ -421,7 +421,7 @@ public class SimulateLogin {
             }
         }).start();
     }
-    private void searchTestInfo(){
+    private void searchTestInfo(final ParseTestHtml callback){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -456,13 +456,14 @@ public class SimulateLogin {
                     final String result = response.toString();
                     Log.e("searchTestInfo", result);
                     testHtml = result;
+                    callback.onResult(testHtml);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }).start();
     }
-    private void initSearchTestInfo(){
+    private void initSearchTestInfo(final ParseTestHtml callback){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -488,7 +489,7 @@ public class SimulateLogin {
                     EVENTVALIDATION = URLEncoder.encode(elements.get(2).attr("value"), "utf-8");
                     Log.e("2", EVENTVALIDATION);
                     Log.e("initSearchTestInfo", result);
-                    searchTestInfo();
+                    searchTestInfo(callback);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
