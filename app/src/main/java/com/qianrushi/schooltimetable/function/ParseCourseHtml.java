@@ -5,12 +5,12 @@ import android.util.Log;
 /**
  * Created by lwx on 2016/3/20.
  */
-public class AnalyseContent {
+public class ParseCourseHtml {
     String courseName, location;
     int startWeek, endWeek;
     String content;
     int divider;
-    public AnalyseContent(String content){
+    public ParseCourseHtml(String content){
         this.content = content;
     }
     public String getCourseName(){

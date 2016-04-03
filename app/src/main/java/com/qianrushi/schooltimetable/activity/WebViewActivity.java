@@ -11,10 +11,9 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.qianrushi.schooltimetable.R;
-import com.qianrushi.schooltimetable.function.AnalyseContent;
+import com.qianrushi.schooltimetable.function.ParseCourseHtml;
 import com.qianrushi.schooltimetable.model.CourseInfo;
 import com.qianrushi.schooltimetable.model.MyCourseinfo;
 
@@ -152,7 +151,7 @@ public class WebViewActivity extends AppCompatActivity {
         return content.split("]").length;
     }
     public void addCourse(String content, CourseInfo.Builder builder){
-        AnalyseContent ac = new AnalyseContent(content);
+        ParseCourseHtml ac = new ParseCourseHtml(content);
         courseList.add(builder.location(ac.getLocation())
                 .startWeek(ac.getStartWeek())
                 .endWeek(ac.getEndWeek())

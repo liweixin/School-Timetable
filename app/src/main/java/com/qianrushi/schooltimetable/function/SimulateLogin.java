@@ -34,7 +34,7 @@ public class SimulateLogin {
     String captcha;
     HttpURLConnection connection;
     String courseHtml, gradeHtml, testHtml;
-    boolean login;
+    static boolean login;
     char errorCode='0';
     Bitmap bitmap;
     static Activity callback;
@@ -64,10 +64,10 @@ public class SimulateLogin {
         }
         return courseHtml;
     }
-    public String getGradeHtml(){
+    public String getGradeHtml(ParseGradeHtml callback){
         if(!login) throw new IllegalStateException("请求数据前必须登录");
         if(gradeHtml==null){
-            initSearchGradeInfo();
+            initSearchGradeInfo(callback);
         }
         return gradeHtml;
     }
@@ -84,7 +84,7 @@ public class SimulateLogin {
         this.captcha = captcha;
         uLogin();
     }
-    public boolean hasLogin(){
+    public static boolean hasLogin(){
         return login;
     }
     public int getErrorCode(){
@@ -345,7 +345,7 @@ public class SimulateLogin {
     String EVENTVALIDATION="";
     String VIEWSTATE="";
     String VIEWSTATEGENERATOR="";
-    private void searchGradeInfo(){
+    private void searchGradeInfo(final ParseGradeHtml callback){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -381,13 +381,14 @@ public class SimulateLogin {
                     final String result = response.toString();
                     Log.e("searchGradeInfo", result);
                     gradeHtml = result;
+                    callback.onResult(gradeHtml);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }).start();
     }
-    private void initSearchGradeInfo(){
+    private void initSearchGradeInfo(final ParseGradeHtml callback){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -413,7 +414,7 @@ public class SimulateLogin {
                     EVENTVALIDATION = URLEncoder.encode(elements.get(2).attr("value"), "utf-8");
                     Log.e("2", EVENTVALIDATION);
                     Log.e("initGradeSearchInfo", result);
-                    searchGradeInfo();
+                    searchGradeInfo(callback);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
