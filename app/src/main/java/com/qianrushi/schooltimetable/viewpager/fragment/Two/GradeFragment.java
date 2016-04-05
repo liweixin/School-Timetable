@@ -42,6 +42,7 @@ public class GradeFragment extends Fragment {
         super.onResume();
         if(SimulateLogin.hasLogin()){
             ParseGradeHtml.getInstance().init(this);
+            SimulateLogin.getInstance().getGrade();
         }
     }
     public void notifyDataSetChanged(){

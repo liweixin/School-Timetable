@@ -29,7 +29,7 @@ public class ParseGradeHtml {
     }
     public void init(GradeFragment callback){
         this.callback = callback;
-        html = SimulateLogin.getInstance().getGradeHtml(this);
+       //html = SimulateLogin.getInstance().getGradeHtml(this);
     }
     public void onResult(String html){
         this.html = html;

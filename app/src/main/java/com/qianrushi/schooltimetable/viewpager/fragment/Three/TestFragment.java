@@ -42,6 +42,7 @@ public class TestFragment extends Fragment {
         super.onResume();
         if(SimulateLogin.hasLogin()){
             ParseTestHtml.getInstance().init(this);
+            SimulateLogin.getInstance().getTest();
         }
     }
     public void notifyDataSetChanged(){

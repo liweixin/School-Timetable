@@ -32,7 +32,7 @@ public class ParseTestHtml {
     }
     public void init(TestFragment callback){
         this.callback = callback;
-        html = SimulateLogin.getInstance().getTestHtml(this);
+        //html = SimulateLogin.getInstance().getTestHtml(this);
     }
     public void onResult(String html){
         this.html = html;

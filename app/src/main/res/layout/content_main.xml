@@ -27,7 +27,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="二维码"
+            android:text="成绩查询"
             android:background="@color/white"
             android:textColor="@color/black"
             />
@@ -36,7 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="扫码"
+            android:text="考试信息"
             android:background="@color/white"
             android:textColor="@color/black"
             />
@@ -45,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Four"
+            android:text="更多"
             android:background="@color/white"
             android:textColor="@color/black"
             />

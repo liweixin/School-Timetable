@@ -31,7 +31,7 @@ public class SimulateLoginAcitivity extends AppCompatActivity {
     EditText et, un, pw;
     Button ulogin, gradeInfo, testInfo, refresh;
     TextView tv;
-    final SimulateLogin simulateLogin = SimulateLogin.getInstance(this);
+    SimulateLogin simulateLogin;
     List<CourseInfo> courseList = new ArrayList();
 
     @Override
@@ -43,24 +43,26 @@ public class SimulateLoginAcitivity extends AppCompatActivity {
         un = (EditText) findViewById(R.id.username);
         pw = (EditText) findViewById(R.id.password);
         tv = (TextView) findViewById(R.id.text_view);
+        simulateLogin = SimulateLogin.getInstance(this, iv);
         refresh = (Button) findViewById(R.id.refresh);
-        refresh.setOnClickListener(new View.OnClickListener() {
+        /*refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 simulateLogin.refreshCaptcha();
             }
-        });
+        });*/
         ulogin = (Button) findViewById(R.id.submit);
         ulogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                simulateLogin.login(un.getText().toString(), pw.getText().toString(), et.getText().toString());
+                simulateLogin.login(un.getText().toString(), pw.getText().toString(), et.getText().toString(), tv, SimulateLoginAcitivity.this);
             }
         });
         gradeInfo = (Button) findViewById(R.id.grade_info);
         gradeInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                simulateLogin.getGrade();
                 //simulateLogin.getGradeHtml();
             }
         });
@@ -68,6 +70,7 @@ public class SimulateLoginAcitivity extends AppCompatActivity {
         testInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                simulateLogin.getTest();
                 //simulateLogin.getTestHtml();
             }
         });
@@ -80,9 +83,9 @@ public class SimulateLoginAcitivity extends AppCompatActivity {
             }
         });
     }
-    public void onLoginFinished(){
+    /*public void onLoginFinished(){
         simulateLogin.getCourseHtml();
-    }
+    }*/
     public void parseCourseList(final String html){
         new Thread(new Runnable() {
             @Override
