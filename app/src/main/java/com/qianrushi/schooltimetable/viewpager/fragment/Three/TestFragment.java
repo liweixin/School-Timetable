@@ -56,7 +56,7 @@ public class TestFragment extends Fragment {
         });
     }
     public void initRecyclerView() {
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.test_info);;
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.test_info);
         layoutManager = new LinearLayoutManager(Util.getInstance().getContext());
         //layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);

@@ -106,13 +106,15 @@ public class TimeTableFragment extends Fragment {
     public void onStart(){
         super.onStart();
         if(MyCourseinfo.getInstace()!=null){
-            if(set) return;
-            set = true;
+            //if(set) return;
             new Thread(new Runnable() { //需要延迟一段时间加载课表才生效 有没有改进办法
                 @Override
                 public void run() {
                     try {
-                        TimeUnit.MILLISECONDS.sleep(3000);
+                        if(!set){
+                            TimeUnit.MILLISECONDS.sleep(3000);
+                        }
+                        set = true;
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
