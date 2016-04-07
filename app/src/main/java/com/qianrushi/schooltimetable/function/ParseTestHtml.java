@@ -2,6 +2,8 @@ package com.qianrushi.schooltimetable.function;
 
 import android.util.Log;
 
+import com.qianrushi.schooltimetable.event.TestHtmlEvent;
+import com.qianrushi.schooltimetable.event.TestParseEvent;
 import com.qianrushi.schooltimetable.model.GradeInfo;
 import com.qianrushi.schooltimetable.model.MyGradeInfoList;
 import com.qianrushi.schooltimetable.model.MyTestInfoList;
@@ -9,6 +11,9 @@ import com.qianrushi.schooltimetable.model.TestInfo;
 import com.qianrushi.schooltimetable.viewpager.fragment.Three.TestFragment;
 import com.qianrushi.schooltimetable.viewpager.fragment.Two.GradeFragment;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,22 +27,17 @@ import java.util.List;
 public class ParseTestHtml {
     private static ParseTestHtml parseTestHtml;
     String html;
-    TestFragment callback;
-    private ParseTestHtml(){}
+    EventBus eventBus;
+    private ParseTestHtml(){ eventBus = EventBus.getDefault(); eventBus.register(this);}
     public static ParseTestHtml getInstance(){
         if(parseTestHtml==null){
             parseTestHtml = new ParseTestHtml();
         }
         return parseTestHtml;
     }
-    public void init(TestFragment callback){
-        this.callback = callback;
-        //html = SimulateLogin.getInstance().getTestHtml(this);
-    }
-    public void onResult(String html){
-        this.html = html;
-        parse(html);
-        Log.e("html", html);
+    @Subscribe (threadMode = ThreadMode.BACKGROUND)
+    public void onEvent(TestHtmlEvent event){
+        parse(event.getGradeHtml());
     }
     public void parse(String html){
         final Document doc = Jsoup.parse(html);
@@ -56,6 +56,6 @@ public class ParseTestHtml {
                     infos.get(4).text()));
         }
         Log.e("size", testList.size() + "");
-        callback.notifyDataSetChanged();
+        EventBus.getDefault().post(new TestParseEvent());
     }
 }

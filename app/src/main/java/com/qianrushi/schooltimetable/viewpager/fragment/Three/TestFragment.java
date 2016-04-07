@@ -11,11 +11,16 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.qianrushi.schooltimetable.R;
+import com.qianrushi.schooltimetable.event.TestParseEvent;
 import com.qianrushi.schooltimetable.function.ParseTestHtml;
 import com.qianrushi.schooltimetable.function.SimulateLogin;
 import com.qianrushi.schooltimetable.model.MyTestInfoList;
 import com.qianrushi.schooltimetable.model.TestInfo;
 import com.qianrushi.schooltimetable.utils.Util;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -27,6 +32,15 @@ public class TestFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     View rootView;
     TestAdapter adapter;
+    EventBus eventBus;
+    public TestFragment(){
+        eventBus = EventBus.getDefault();
+        eventBus.register(this);
+    }
+    @Subscribe (threadMode = ThreadMode.MAIN)
+    public void onEvent(TestParseEvent event){
+        notifyDataSetChanged();
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         rootView = inflater.inflate(R.layout.fragment_test, container, false);
@@ -41,19 +55,14 @@ public class TestFragment extends Fragment {
     public void onResume(){
         super.onResume();
         if(SimulateLogin.hasLogin()){
-            ParseTestHtml.getInstance().init(this);
+            //启动时执行查询考试信息函数
             SimulateLogin.getInstance().getTest();
         }
     }
     public void notifyDataSetChanged(){
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if(adapter!=null){
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        });
+        if(adapter!=null){
+            adapter.notifyDataSetChanged();
+        }
     }
     public void initRecyclerView() {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.test_info);

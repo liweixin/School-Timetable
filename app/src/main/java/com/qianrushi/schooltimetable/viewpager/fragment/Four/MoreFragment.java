@@ -29,6 +29,7 @@ import com.zxing.activity.CaptureActivity;
 public class MoreFragment extends Fragment {
     View rootView;
     Button setting, scanQRCode, generateQRCode, logout;
+    public static final int SCAN_QRCODE = 100;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         rootView = inflater.inflate(R.layout.fragment_more, container, false);
@@ -45,7 +46,7 @@ public class MoreFragment extends Fragment {
             public void onClick(View v) {
                 Intent openCameraIntent = new Intent(getActivity(),
                         CaptureActivity.class);
-                getActivity().startActivityForResult(openCameraIntent, 100);
+                getActivity().startActivityForResult(openCameraIntent, SCAN_QRCODE);
             }
         });
         generateQRCode = (Button) rootView.findViewById(R.id.generate_qrcode);

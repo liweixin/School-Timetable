@@ -1,6 +1,7 @@
 package com.qianrushi.schooltimetable.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.qianrushi.schooltimetable.function.ParseCourseHtml;
 import com.qianrushi.schooltimetable.function.SimulateLogin;
 import com.qianrushi.schooltimetable.model.CourseInfo;
 import com.qianrushi.schooltimetable.model.MyCourseinfo;
+import com.qianrushi.schooltimetable.utils.Util;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -25,11 +27,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
+
 public class SimulateLoginAcitivity extends AppCompatActivity {
 
     ImageView iv;
     EditText et, un, pw;
-    Button ulogin, gradeInfo, testInfo, refresh;
+    Button ulogin, refresh;
     TextView tv;
     SimulateLogin simulateLogin;
     List<CourseInfo> courseList = new ArrayList();
@@ -45,33 +53,35 @@ public class SimulateLoginAcitivity extends AppCompatActivity {
         tv = (TextView) findViewById(R.id.text_view);
         simulateLogin = SimulateLogin.getInstance(this, iv);
         refresh = (Button) findViewById(R.id.refresh);
-        /*refresh.setOnClickListener(new View.OnClickListener() {
+        refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                simulateLogin.refreshCaptcha();
+                simulateLogin.refreshCaptcha().subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<Bitmap>() {
+                            @Override
+                            public void onCompleted() {
+                                
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                e.printStackTrace();
+                            }
+
+                            @Override
+                            public void onNext(Bitmap bitmap) {
+                                iv.setImageBitmap(bitmap);
+                            }
+                        });
+                                //simulateLogin.refreshCaptcha();
             }
-        });*/
+        });
         ulogin = (Button) findViewById(R.id.submit);
         ulogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 simulateLogin.login(un.getText().toString(), pw.getText().toString(), et.getText().toString(), tv, SimulateLoginAcitivity.this);
-            }
-        });
-        gradeInfo = (Button) findViewById(R.id.grade_info);
-        gradeInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                simulateLogin.getGrade();
-                //simulateLogin.getGradeHtml();
-            }
-        });
-        testInfo = (Button) findViewById(R.id.test_info);
-        testInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                simulateLogin.getTest();
-                //simulateLogin.getTestHtml();
             }
         });
     }

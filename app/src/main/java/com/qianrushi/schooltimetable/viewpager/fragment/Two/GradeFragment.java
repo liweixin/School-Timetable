@@ -11,11 +11,16 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.qianrushi.schooltimetable.R;
+import com.qianrushi.schooltimetable.event.GradeParseEvent;
 import com.qianrushi.schooltimetable.function.ParseGradeHtml;
 import com.qianrushi.schooltimetable.function.SimulateLogin;
 import com.qianrushi.schooltimetable.model.GradeInfo;
 import com.qianrushi.schooltimetable.model.MyGradeInfoList;
 import com.qianrushi.schooltimetable.utils.Util;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -27,6 +32,15 @@ public class GradeFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     View rootView;
     GradeAdapter adapter;
+    EventBus eventBus;
+    public GradeFragment(){
+        eventBus = EventBus.getDefault();
+        eventBus.register(this);
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(GradeParseEvent event){
+        notifyDataSetChanged();
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         rootView = inflater.inflate(R.layout.fragment_grade, container, false);
@@ -41,19 +55,13 @@ public class GradeFragment extends Fragment {
     public void onResume(){
         super.onResume();
         if(SimulateLogin.hasLogin()){
-            ParseGradeHtml.getInstance().init(this);
             SimulateLogin.getInstance().getGrade();
         }
     }
     public void notifyDataSetChanged(){
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if(adapter!=null){
-                    adapter.notifyDataSetChanged();
-                }
-            }
-        });
+        if(adapter!=null){
+            adapter.notifyDataSetChanged();
+        }
     }
     public void initRecyclerView() {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.grade_info);;

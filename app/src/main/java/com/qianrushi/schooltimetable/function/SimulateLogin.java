@@ -11,7 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qianrushi.schooltimetable.activity.SimulateLoginAcitivity;
+import com.qianrushi.schooltimetable.event.GradeHtmlEvent;
+import com.qianrushi.schooltimetable.event.TestHtmlEvent;
+import com.qianrushi.schooltimetable.event.TestParseEvent;
 
+import org.greenrobot.eventbus.EventBus;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -69,27 +73,6 @@ public class SimulateLogin {
         return simulateLogin;
     }
 
-    /*public String getCourseHtml(){
-        if(!login) throw new IllegalStateException("请求数据前必须登录");
-        if(courseHtml==null){
-            getCourse();
-        }
-        return courseHtml;
-    }*/
-    /*public String getGradeHtml(ParseGradeHtml callback){
-        if(!login) throw new IllegalStateException("请求数据前必须登录");
-        if(gradeHtml==null){
-            initSearchGradeInfo(callback);
-        }
-        return gradeHtml;
-    }*/
-    /*public String getTestHtml(ParseTestHtml callback){
-        if(!login) throw new IllegalStateException("请求数据前必须登录");
-        if (testHtml==null) {
-            initSearchTestInfo(callback);
-        }
-        return testHtml;
-    }*/
     public void login(String username, String password, String captcha, final TextView tv, final SimulateLoginAcitivity callback){
         this.username = username;
         this.password = password;
@@ -153,8 +136,8 @@ public class SimulateLogin {
                     }
                 });
     }
-    public void refreshCaptcha(){
-        captcha();
+    public Observable<Bitmap> refreshCaptcha(){
+        return captcha();
     }
     public Observable<String> getInitObservable(){
         return Observable.create(new Observable.OnSubscribe<String>() {
@@ -247,23 +230,24 @@ public class SimulateLogin {
         return Observable.just(reurl);
     }
     private Observable<Bitmap> captcha(){
-        HttpURLConnection connection = null;
-        try {
-            URL url = new URL("https://jaccount.sjtu.edu.cn/jaccount/captcha");
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setConnectTimeout(8000);
-            connection.setReadTimeout(8000);
-            InputStream in = connection.getInputStream();
-            bitmap = BitmapFactory.decodeStream(in);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (connection != null) {
-                connection.disconnect();
+        return Observable.create(new Observable.OnSubscribe<Bitmap>() {
+            @Override
+            public void call(Subscriber<? super Bitmap> subscriber) {
+                try {
+                    URL url = new URL("https://jaccount.sjtu.edu.cn/jaccount/captcha");
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.setConnectTimeout(8000);
+                    connection.setReadTimeout(8000);
+                    InputStream in = connection.getInputStream();
+                    bitmap = BitmapFactory.decodeStream(in);
+                    subscriber.onNext(bitmap);
+                    subscriber.onCompleted();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-        }
-        return Observable.just(bitmap);
+        });
     }
     private String uLogin() throws Exception{
         URL url = new URL("https://jaccount.sjtu.edu.cn/jaccount/ulogin");
@@ -433,7 +417,7 @@ public class SimulateLogin {
 
                     @Override
                     public void onNext(String s) {
-                        ParseGradeHtml.getInstance().onResult(s);
+                        EventBus.getDefault().post(new GradeHtmlEvent(s));
                     }
                 });
     }
@@ -459,7 +443,7 @@ public class SimulateLogin {
 
             @Override
             public void onNext(String s) {
-                ParseTestHtml.getInstance().onResult(s);
+                EventBus.getDefault().post(new TestHtmlEvent(s));
             }
         });
     }

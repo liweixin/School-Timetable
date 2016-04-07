@@ -16,6 +16,7 @@ import com.qianrushi.schooltimetable.activity.SimulateLoginAcitivity;
  */
 public class ButtonFragment extends Fragment implements View.OnClickListener{
     private View mView;
+    public static final int LOGIN = 512;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
         mView = inflater.inflate(R.layout.fragment_button, container, false);
@@ -33,7 +34,7 @@ public class ButtonFragment extends Fragment implements View.OnClickListener{
                 Toast.makeText(getActivity().getApplicationContext(), "Import course", Toast.LENGTH_LONG).show();
                 //Intent intent = new Intent(getActivity(), WebViewActivity.class);
                 Intent intent = new Intent(getActivity(), SimulateLoginAcitivity.class);
-                getActivity().startActivityForResult(intent, 512);
+                getActivity().startActivityForResult(intent, LOGIN);
                 break;
             case R.id.add_course:
                 Toast.makeText(getActivity().getApplicationContext(), "Add course.", Toast.LENGTH_LONG).show();

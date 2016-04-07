@@ -31,16 +31,6 @@
             android:text="submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/grade_info"
-            android:text="查询成绩"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/test_info"
-            android:text="查询考试"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     </LinearLayout>
     <ImageView
         android:id="@+id/iv"

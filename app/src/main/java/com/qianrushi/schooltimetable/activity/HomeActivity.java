@@ -29,6 +29,7 @@ import com.qianrushi.schooltimetable.R;
 import com.qianrushi.schooltimetable.model.CourseInfo;
 import com.qianrushi.schooltimetable.model.EncodeAndDecode;
 import com.qianrushi.schooltimetable.model.MyCourseinfo;
+import com.qianrushi.schooltimetable.viewpager.fragment.One.ButtonFragment;
 import com.qianrushi.schooltimetable.viewpager.fragment.Three.TestFragment;
 import com.qianrushi.schooltimetable.viewpager.fragment.Two.GradeFragment;
 import com.qianrushi.schooltimetable.viewpager.fragment.Four.MoreFragment;
@@ -255,13 +256,13 @@ public class HomeActivity extends FragmentActivity implements OnClickListener, A
         Log.e("requestCode", requestCode+"");
         Log.e("resultCode", resultCode+"");
         switch (requestCode){
-            case 512:
+            case ButtonFragment.LOGIN:
                 List<CourseInfo> courseInfoList = (List<CourseInfo>) intent.getSerializableExtra("courseList");
                 MyCourseinfo.setCourseInfo(courseInfoList);//update my courseInfo
                 ((TimeTableFragment)fragmentList.get(0)).addCourseView();
                 EncodeAndDecode.saveProduct(courseInfoList);
                 break;
-            case 100:
+            case MoreFragment.SCAN_QRCODE:
                 ((MoreFragment)fragmentList.get(3)).onScanResult(resultCode, intent);
                 break;
         }
