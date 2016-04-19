@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class MyCourseinfo implements Serializable{
     private static List<CourseInfo> courseInfoList;
+    private static boolean shown = false;
     private MyCourseinfo(){};
     public static List<CourseInfo> getInstace(){
         if(courseInfoList==null){
@@ -22,5 +23,13 @@ public class MyCourseinfo implements Serializable{
             Log.e("attention", "MyCourseInfo has init before.");
         }
         MyCourseinfo.courseInfoList = courseInfoList;
+    }
+
+    public static boolean isShown() {
+        return shown;
+    }
+
+    public static void setShown(boolean shown) {
+        MyCourseinfo.shown = shown;
     }
 }

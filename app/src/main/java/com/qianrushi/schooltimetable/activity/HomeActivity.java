@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.qianrushi.schooltimetable.R;
+import com.qianrushi.schooltimetable.event.RefreshTimeTableEvent;
 import com.qianrushi.schooltimetable.model.CourseInfo;
 import com.qianrushi.schooltimetable.model.EncodeAndDecode;
 import com.qianrushi.schooltimetable.model.MyCourseinfo;
@@ -34,6 +35,8 @@ import com.qianrushi.schooltimetable.viewpager.fragment.Three.TestFragment;
 import com.qianrushi.schooltimetable.viewpager.fragment.Two.GradeFragment;
 import com.qianrushi.schooltimetable.viewpager.fragment.Four.MoreFragment;
 import com.qianrushi.schooltimetable.viewpager.fragment.One.TimeTableFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 public class HomeActivity extends FragmentActivity implements OnClickListener, AppCompatCallback {
 
@@ -259,7 +262,10 @@ public class HomeActivity extends FragmentActivity implements OnClickListener, A
             case ButtonFragment.LOGIN:
                 List<CourseInfo> courseInfoList = (List<CourseInfo>) intent.getSerializableExtra("courseList");
                 MyCourseinfo.setCourseInfo(courseInfoList);//update my courseInfo
-                ((TimeTableFragment)fragmentList.get(0)).addCourseView();
+                TimeTableFragment ttf = (TimeTableFragment) fragmentList.get(0);
+                /*ttf.clearCourseLayout();
+                ttf.addCourseView();*/
+                EventBus.getDefault().post(new RefreshTimeTableEvent(true));
                 EncodeAndDecode.saveProduct(courseInfoList);
                 break;
             case MoreFragment.SCAN_QRCODE:

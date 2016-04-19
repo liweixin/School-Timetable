@@ -11,6 +11,8 @@ public class Util {
     private Util(){};
     static Util utils;
     Context context = null;
+    public final static int EDIT_COURSE = 1;
+    public final static int ADD_COURSE = 2;
 
     public static Util getInstance(){
         if (utils==null){
@@ -39,9 +41,9 @@ public class Util {
         return context;
     }
     public static int getCurrentWeek(){
-        return 6;
+        return 9;
     }
     public static int getCurrentWeekDay(){
-        return 7;
+        return 1;
     }
 }

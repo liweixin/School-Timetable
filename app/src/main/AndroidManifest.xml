@@ -7,13 +7,15 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <application
+        android:installLocation="preferExternal"
         android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="小课表"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".initial.view.SchoolPage" >
+        <activity android:name=".activity.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -33,12 +35,11 @@
         <activity android:name=".initial.view.CollegePage"/>
         <activity android:name=".initial.view.AdmissionAndEducationPage"/>
         <activity android:name=".initial.view.ConfirmUserInfoPage"/>
-        <activity
-            android:name=".activity.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".initial.view.SchoolPage"/>
         <activity android:name=".activity.WebViewActivity"/>
         <activity android:name=".activity.SimulateLoginAcitivity"/>
         <activity android:name=".activity.GenerateQRCodeActivity"/>
+        <activity android:name=".activity.EditCourseActivity"/>
     </application>
 
 </manifest>

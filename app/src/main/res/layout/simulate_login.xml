@@ -1,47 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <EditText
-        android:id="@+id/username"
-        android:text="qq627632598"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:id="@+id/password"
-        android:inputType="textPassword"
-        android:text=""
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:id="@+id/edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_login">
+    <!-- padding 内边距   layout_margin 外边距
+  		android:layout_alignParentTop 布局的位置是否处于顶部 -->
+
     <LinearLayout
+        android:padding="10dip"
+        android:layout_margin="10dip"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/refresh"
-            android:text="换一张"
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <ImageView
+            android:src="@drawable/logo_bg"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/submit"
-            android:text="submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:id="@+id/login_div"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="30dip"
+            android:layout_margin="30dip"
+            android:background="@drawable/background_login_div" >
+            <!-- 账号 -->
+            <TextView
+                android:id="@+id/login_user_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:text="@string/login_label_username"/>
+            <EditText
+                android:id="@+id/username_edit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_username_hint"
+                android:layout_below="@id/login_user_input"
+                android:singleLine="true"
+                android:inputType="text"/>
+            <!-- 密码 text -->
+            <TextView
+                android:id="@+id/login_password_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/username_edit"
+                android:layout_marginTop="3dp"
+                android:text="@string/login_label_password"/>
+            <EditText
+                android:id="@+id/password_edit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/login_password_input"
+                android:password="true"
+                android:hint="@string/login_password_hint"
+                android:singleLine="true"
+                android:inputType="textPassword" />
+            <!-- 验证码 -->
+            <TextView
+                android:id="@+id/login_captcha_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_lable_captcha"
+                android:layout_below="@+id/password_edit"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+            <LinearLayout
+                android:id="@+id/captcha"
+                android:orientation="horizontal"
+                android:layout_below="@+id/login_captcha_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/captcha_edit"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:password="true"
+                    android:hint="@string/login_captcha_hint"
+                    android:singleLine="true"
+                    android:inputType="textPassword" />
+                <TextView
+                    android:id="@+id/blank"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/iv"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/refresh_button"
+                android:layout_width="wrap_content"
+                android:background="@drawable/button_bg"
+                android:layout_height="30dp"
+                android:text="换一张"
+                android:layout_below="@+id/captcha"
+                android:layout_alignLeft="@+id/captcha"
+                android:layout_alignStart="@+id/captcha" />
+            <Button
+                android:id="@+id/signin_button"
+                android:background="@drawable/button_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:text="@string/login_label_signin"
+                android:layout_below="@+id/captcha"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+            <TextView  android:id="@+id/register_link"
+                android:text="@string/login_register_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:textColor="#888"
+                android:textColorLink="#FF0066CC"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="32dp" />
+
+        </RelativeLayout>
     </LinearLayout>
-    <ImageView
-        android:id="@+id/iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </ScrollView>
+
 </LinearLayout>

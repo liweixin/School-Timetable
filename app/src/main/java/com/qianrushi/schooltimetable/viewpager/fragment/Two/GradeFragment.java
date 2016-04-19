@@ -41,6 +41,7 @@ public class GradeFragment extends Fragment {
     public void onEvent(GradeParseEvent event){
         notifyDataSetChanged();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
         rootView = inflater.inflate(R.layout.fragment_grade, container, false);

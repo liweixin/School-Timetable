@@ -94,7 +94,6 @@ public class SimulateLogin {
                 .subscribe(new Action1<String>() {
                     @Override
                     public void call(String s) {
-                        tv.setText(s);
                         callback.parseCourseList(s);
                     }
                 });

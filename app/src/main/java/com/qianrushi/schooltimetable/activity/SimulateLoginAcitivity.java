@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.qianrushi.schooltimetable.R;
 import com.qianrushi.schooltimetable.function.ParseCourseHtml;
@@ -47,12 +48,11 @@ public class SimulateLoginAcitivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simulate_login);
         iv = (ImageView) findViewById(R.id.iv);
-        et = (EditText) findViewById(R.id.edit_text);
-        un = (EditText) findViewById(R.id.username);
-        pw = (EditText) findViewById(R.id.password);
-        tv = (TextView) findViewById(R.id.text_view);
+        et = (EditText) findViewById(R.id.captcha_edit);
+        un = (EditText) findViewById(R.id.username_edit);
+        pw = (EditText) findViewById(R.id.password_edit);
         simulateLogin = SimulateLogin.getInstance(this, iv);
-        refresh = (Button) findViewById(R.id.refresh);
+        refresh = (Button) findViewById(R.id.refresh_button);
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,7 +61,7 @@ public class SimulateLoginAcitivity extends AppCompatActivity {
                         .subscribe(new Observer<Bitmap>() {
                             @Override
                             public void onCompleted() {
-                                
+
                             }
 
                             @Override
@@ -77,11 +77,17 @@ public class SimulateLoginAcitivity extends AppCompatActivity {
                                 //simulateLogin.refreshCaptcha();
             }
         });
-        ulogin = (Button) findViewById(R.id.submit);
+        ulogin = (Button) findViewById(R.id.signin_button);
         ulogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 simulateLogin.login(un.getText().toString(), pw.getText().toString(), et.getText().toString(), tv, SimulateLoginAcitivity.this);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "logining", Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
     }
@@ -93,9 +99,6 @@ public class SimulateLoginAcitivity extends AppCompatActivity {
             }
         });
     }
-    /*public void onLoginFinished(){
-        simulateLogin.getCourseHtml();
-    }*/
     public void parseCourseList(final String html){
         new Thread(new Runnable() {
             @Override
@@ -156,7 +159,6 @@ public class SimulateLoginAcitivity extends AppCompatActivity {
                     Intent intent = new Intent();
                     intent.putExtra("courseList", (Serializable)courseList);
                     setResult(RESULT_OK, intent);
-                    MyCourseinfo.setCourseInfo(courseList);
                     finish();
                 } catch (Exception e) {
                     e.printStackTrace();
