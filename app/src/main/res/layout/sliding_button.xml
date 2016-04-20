@@ -1,0 +1,29 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:slider="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+    <com.qianrushi.schooltimetable.view.SlideView
+        android:id="@+id/slider"
+        android:layout_width="320dp"
+        android:layout_height="96dp"
+        android:background="@drawable/bg"
+        slider:maskText="@string/slider_text"
+        slider:maskTextSize="24sp"
+        slider:maskTextMarginLeft="95dp"
+        slider:maskTextMarginTop="60dp"
+        slider:slider="@drawable/arrow"
+        slider:sliderMarginLeft="22dp"
+        slider:sliderMarginTop="24dp"
+        slider:slidableLength="208dp"
+        slider:effectiveLength="190dp"
+        slider:effectiveVelocity="1300dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

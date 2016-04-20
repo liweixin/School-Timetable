@@ -18,6 +18,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
+        android:id="@+id/login"
+        android:text="jaccount登录"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
         android:id="@+id/logout"
         android:text="注销"
         android:layout_width="match_parent"

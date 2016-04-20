@@ -17,10 +17,13 @@ import com.google.gson.Gson;
 import com.google.zxing.WriterException;
 import com.qianrushi.schooltimetable.R;
 import com.qianrushi.schooltimetable.activity.GenerateQRCodeActivity;
+import com.qianrushi.schooltimetable.activity.SimulateLoginAcitivity;
+import com.qianrushi.schooltimetable.function.SimulateLogin;
 import com.qianrushi.schooltimetable.function.zxing.BitmapUtil;
 import com.qianrushi.schooltimetable.model.CourseList;
 import com.qianrushi.schooltimetable.model.MyCourseinfo;
 import com.qianrushi.schooltimetable.network.Transfer;
+import com.qianrushi.schooltimetable.utils.Util;
 import com.zxing.activity.CaptureActivity;
 
 /**
@@ -28,7 +31,7 @@ import com.zxing.activity.CaptureActivity;
  */
 public class MoreFragment extends Fragment {
     View rootView;
-    Button setting, scanQRCode, generateQRCode, logout;
+    Button setting, scanQRCode, generateQRCode, logout, login;
     public static final int SCAN_QRCODE = 100;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance){
@@ -56,11 +59,23 @@ public class MoreFragment extends Fragment {
                 startActivity(new Intent(getContext(), GenerateQRCodeActivity.class));
             }
         });
-        logout = (Button) rootView.findViewById(R.id.setting);
+        logout = (Button) rootView.findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SimulateLogin.logout();
+                Util.getInstance().toast("注销成功");
+            }
+        });
+        login = (Button) rootView.findViewById(R.id.login);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(SimulateLogin.hasLogin()){
+                    Util.getInstance().toast("你已经登录过了0.0");
+                } else {
+                    startActivity(new Intent(getContext(), SimulateLoginAcitivity.class));
+                }
             }
         });
         return rootView;

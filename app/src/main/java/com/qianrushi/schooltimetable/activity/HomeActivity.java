@@ -208,9 +208,11 @@ public class HomeActivity extends FragmentActivity implements OnClickListener, A
                 break;
             case R.id.btn_two:
                 changeView(1);
+                gradeFragment.onSelect();
                 break;
             case R.id.btn_three:
                 changeView(2);
+                testFragment.onSelect();
                 break;
             case R.id.btn_four:
                 changeView(3);
@@ -262,9 +264,6 @@ public class HomeActivity extends FragmentActivity implements OnClickListener, A
             case ButtonFragment.LOGIN:
                 List<CourseInfo> courseInfoList = (List<CourseInfo>) intent.getSerializableExtra("courseList");
                 MyCourseinfo.setCourseInfo(courseInfoList);//update my courseInfo
-                TimeTableFragment ttf = (TimeTableFragment) fragmentList.get(0);
-                /*ttf.clearCourseLayout();
-                ttf.addCourseView();*/
                 EventBus.getDefault().post(new RefreshTimeTableEvent(true));
                 EncodeAndDecode.saveProduct(courseInfoList);
                 break;

@@ -61,6 +61,10 @@ public class EditCourseActivity extends BaseActivity{
                         .name(courseName.getText().toString()).build();
                 if(1==1/*courseInfo内容合法*/){
                     MyCourseinfo.getInstace().add(courseInfo);
+                    if(getIntent().getSerializableExtra("CourseInfo")!=null){ //删除原来的课程（编辑）
+                        CourseInfo info = (CourseInfo)getIntent().getSerializableExtra("CourseInfo");
+                        MyCourseinfo.getInstace().remove(info);
+                    }
                     EncodeAndDecode.saveProduct(MyCourseinfo.getInstace());
                     EventBus.getDefault().post(new RefreshTimeTableEvent(true));
                     finish();

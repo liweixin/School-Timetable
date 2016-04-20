@@ -1,5 +1,8 @@
 package com.qianrushi.schooltimetable.viewpager.fragment.Three;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.qianrushi.schooltimetable.R;
+import com.qianrushi.schooltimetable.activity.SimulateLoginAcitivity;
 import com.qianrushi.schooltimetable.event.TestParseEvent;
 import com.qianrushi.schooltimetable.function.ParseTestHtml;
 import com.qianrushi.schooltimetable.function.SimulateLogin;
@@ -83,5 +87,29 @@ public class TestFragment extends Fragment {
                 //int i = myGradeInfoList.getList().indexOf(item);
             }
         });
+    }
+    public void onSelect(){
+        if(SimulateLogin.hasLogin()){
+            SimulateLogin.getInstance().getGrade();
+        } else {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
+            dialog.setTitle("无法获取考试信息");
+            dialog.setMessage("请保证网络通畅并且已经使用jaccount登录");
+            dialog.setCancelable(true);
+            dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            dialog.setPositiveButton("jaccount登录", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(getContext(), SimulateLoginAcitivity.class);
+                    startActivity(intent);
+                }
+            });
+            dialog.show();
+        }
     }
 }

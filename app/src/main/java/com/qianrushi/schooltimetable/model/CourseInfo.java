@@ -148,7 +148,7 @@ public class CourseInfo implements Serializable, ICourseInfo{
         if (!location.equals(course.location)) return false;
         if (startNum != course.startNum) return false;
         if (day != course.day) return false;
-        return endNum != course.endNum;
+        return endNum == course.endNum;
 
     }
 

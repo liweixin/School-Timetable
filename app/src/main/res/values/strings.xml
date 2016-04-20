@@ -6,4 +6,5 @@
     <string name="choose_education">请输入您的学历：</string>
     <string name="confirm_info">请确认您的信息：</string>
     <string name="not_complete">请输入完整的信息</string>
+    <string name="slider_text">滑动进入小课表^0^</string>
 </resources>

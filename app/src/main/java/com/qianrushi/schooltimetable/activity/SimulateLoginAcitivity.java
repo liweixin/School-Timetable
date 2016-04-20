@@ -13,12 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qianrushi.schooltimetable.R;
+import com.qianrushi.schooltimetable.event.LoginResultEvent;
 import com.qianrushi.schooltimetable.function.ParseCourseHtml;
 import com.qianrushi.schooltimetable.function.SimulateLogin;
 import com.qianrushi.schooltimetable.model.CourseInfo;
 import com.qianrushi.schooltimetable.model.MyCourseinfo;
 import com.qianrushi.schooltimetable.utils.Util;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -42,11 +46,32 @@ public class SimulateLoginAcitivity extends AppCompatActivity {
     TextView tv;
     SimulateLogin simulateLogin;
     List<CourseInfo> courseList = new ArrayList();
-
+    EventBus eventBus;
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(LoginResultEvent event){
+        switch (event.getErrorCode()){
+            case 0:
+                Util.getInstance().toast("登录成功^_^");
+                break;
+            case 1:
+                Util.getInstance().toast("用户名或密码错误0.0");
+                break;
+            case 3:
+                Util.getInstance().toast("验证码错误QAQ");
+                break;
+            default:
+                Util.getInstance().toast("未知的错误...\nerrorCode:"+event.getErrorCode());
+                break;
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simulate_login);
+        if(eventBus==null){
+            eventBus = EventBus.getDefault();
+            eventBus.register(this);
+        }
         iv = (ImageView) findViewById(R.id.iv);
         et = (EditText) findViewById(R.id.captcha_edit);
         un = (EditText) findViewById(R.id.username_edit);
@@ -74,7 +99,6 @@ public class SimulateLoginAcitivity extends AppCompatActivity {
                                 iv.setImageBitmap(bitmap);
                             }
                         });
-                                //simulateLogin.refreshCaptcha();
             }
         });
         ulogin = (Button) findViewById(R.id.signin_button);
@@ -82,20 +106,6 @@ public class SimulateLoginAcitivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 simulateLogin.login(un.getText().toString(), pw.getText().toString(), et.getText().toString(), tv, SimulateLoginAcitivity.this);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "logining", Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        });
-    }
-    public void getCaptcha(){
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                iv.setImageBitmap(simulateLogin.getBitmap());
             }
         });
     }

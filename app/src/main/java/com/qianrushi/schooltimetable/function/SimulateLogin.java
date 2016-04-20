@@ -12,8 +12,9 @@ import android.widget.TextView;
 
 import com.qianrushi.schooltimetable.activity.SimulateLoginAcitivity;
 import com.qianrushi.schooltimetable.event.GradeHtmlEvent;
+import com.qianrushi.schooltimetable.event.LoginResultEvent;
 import com.qianrushi.schooltimetable.event.TestHtmlEvent;
-import com.qianrushi.schooltimetable.event.TestParseEvent;
+import com.qianrushi.schooltimetable.utils.Util;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jsoup.Jsoup;
@@ -47,9 +48,9 @@ public class SimulateLogin {
     String password;
     String captcha;
     HttpURLConnection connection;
-    String courseHtml, gradeHtml, testHtml;
+    public String courseHtml, gradeHtml, testHtml;
     static boolean login;
-    char errorCode='0';
+    int errorCode;
     Bitmap bitmap;
     static Activity callback;
     static ImageView iv;
@@ -102,8 +103,9 @@ public class SimulateLogin {
     public static boolean hasLogin(){
         return login;
     }
+    public static void logout() { login = false; }
     public int getErrorCode(){
-        return errorCode-'0';
+        return errorCode;
     }
     public Bitmap getBitmap(){
         if(bitmap==null){
@@ -285,13 +287,35 @@ public class SimulateLogin {
         int pos;
         //判断登录是否成功
         if((pos=reurl.indexOf("loginfail="))>0){
-            captcha();//refresh captcha
-            errorCode = reurl.charAt(pos+"loginfail=".length());
+            captcha().subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<Bitmap>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Util.getInstance().toast("未知错误");
+                        }
+
+                        @Override
+                        public void onNext(Bitmap bitmap) {
+                            iv.setImageBitmap(bitmap);
+                        }
+                    });
+            //refresh captcha
+            errorCode = reurl.charAt(pos+"loginfail=".length()) - '0';
+
         } else {
             //无错误码，登陆成功，执行后续操作
-            char errorCode='0';
+            errorCode = 0;
+            //成功转换为登录状态，执行后续操作
+            login = true;
             //get(reurl);
         }
+        EventBus.getDefault().post(new LoginResultEvent(errorCode));
         return  reurl;
     }
     private Observable<String> get(final String path){
@@ -416,7 +440,7 @@ public class SimulateLogin {
 
                     @Override
                     public void onNext(String s) {
-                        EventBus.getDefault().post(new GradeHtmlEvent(s));
+                        ParseGradeHtml.getInstance().parse(s);
                     }
                 });
     }
