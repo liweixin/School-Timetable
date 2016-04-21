@@ -76,6 +76,7 @@ public class GradeFragment extends Fragment {
     }
     public void initRecyclerView() {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.grade_info);
+        recyclerView.addItemDecoration(new GradeDecoration(getContext(), GradeDecoration.VERTICAL_LIST));
         layoutManager = new LinearLayoutManager(Util.getInstance().getContext());
         //layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);

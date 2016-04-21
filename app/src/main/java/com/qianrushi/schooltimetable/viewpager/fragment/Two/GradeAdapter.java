@@ -30,7 +30,7 @@ public class GradeAdapter extends RecyclerView.Adapter<GradeAdapter.ViewHolder> 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grade_info_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grade_info_new_item, parent, false);
         ViewHolder vh = new ViewHolder(view);
         view.setOnClickListener(this);
         return vh;

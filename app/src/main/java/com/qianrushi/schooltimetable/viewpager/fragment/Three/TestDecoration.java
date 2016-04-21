@@ -13,6 +13,7 @@ import android.view.View;
  * Created by lwx on 2016/1/31.
  */
 public class TestDecoration extends RecyclerView.ItemDecoration {
+    int space;
     private static final int[] ATTRS = new int[] {
             android.R.attr.listDivider
     };
@@ -20,7 +21,8 @@ public class TestDecoration extends RecyclerView.ItemDecoration {
     public static final int VERTICAL_LIST = LinearLayoutManager.VERTICAL;
     private Drawable mDivider;
     private int mOrientation;
-    public TestDecoration(Context context, int orientation){
+    public TestDecoration(Context context, int orientation, int space){
+        this.space = space;
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         a.recycle();
@@ -74,5 +76,6 @@ public class TestDecoration extends RecyclerView.ItemDecoration {
         } else {
             outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
         }
+        outRect.top = space;
     }
 }

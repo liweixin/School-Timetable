@@ -33,6 +33,8 @@ public class FullTimetableActivity extends BaseActivity{
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
         setContentView(R.layout.activity_full_timetabe);
+        LinearLayout layout = (LinearLayout)findViewById(R.id.timetable);
+        layout.setBackgroundColor(Color.parseColor("#00000000"));
         //setContentView(R.layout.fragment_timetable);
         SlideView slideView = (SlideView) findViewById(R.id.slider);
         slideView.setSlideListener(new SlideView.SlideListener() {
@@ -47,7 +49,9 @@ public class FullTimetableActivity extends BaseActivity{
     @Override
     public void onStart(){
         super.onStart();
-        Log.e("courselist", MyCourseinfo.getInstace().size()+"");
+        if(MyCourseinfo.getInstace()==null){
+            //没有课程，进入另一个欢迎界面
+        }
         /*new Thread(new Runnable() {
             @Override
             public void run() {

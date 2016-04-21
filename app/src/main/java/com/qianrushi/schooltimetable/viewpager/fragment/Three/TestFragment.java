@@ -70,6 +70,7 @@ public class TestFragment extends Fragment {
     }
     public void initRecyclerView() {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.test_info);
+        recyclerView.addItemDecoration(new TestDecoration(getContext(), TestDecoration.HORIZONTAL_LIST, 10));
         layoutManager = new LinearLayoutManager(Util.getInstance().getContext());
         //layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);

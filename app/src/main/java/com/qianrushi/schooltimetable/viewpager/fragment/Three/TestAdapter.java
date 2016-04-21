@@ -32,7 +32,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder> im
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.test_info_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.test_info_new_item, parent, false);
         ViewHolder vh = new ViewHolder(view);
         view.setOnClickListener(this);
         return vh;

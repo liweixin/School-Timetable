@@ -13,6 +13,7 @@ import android.view.View;
  * Created by lwx on 2016/1/31.
  */
 public class GradeDecoration extends RecyclerView.ItemDecoration {
+    int space;
     private static final int[] ATTRS = new int[] {
             android.R.attr.listDivider
     };
@@ -21,6 +22,7 @@ public class GradeDecoration extends RecyclerView.ItemDecoration {
     private Drawable mDivider;
     private int mOrientation;
     public GradeDecoration(Context context, int orientation){
+        space = 10;
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
         mDivider = a.getDrawable(0);
         a.recycle();
@@ -69,10 +71,11 @@ public class GradeDecoration extends RecyclerView.ItemDecoration {
     }
     @Override
     public void getItemOffsets(Rect outRect, int itemPosition, RecyclerView parent) {
-        if (mOrientation==HORIZONTAL_LIST) {
+        if (mOrientation == HORIZONTAL_LIST) {
             outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
         } else {
             outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
         }
+        outRect.top = space;
     }
 }

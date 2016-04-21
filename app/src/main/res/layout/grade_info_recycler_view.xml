@@ -3,35 +3,11 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/title_course_name"
-            android:text="课程名称"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:textSize="20sp" />
-        <TextView
-            android:id="@+id/title_credit"
-            android:text="学分"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20sp"/>
-        <TextView
-            android:id="@+id/title_grade"
-            android:text="成绩"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20sp"/>
-    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/grade_info"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
