@@ -40,13 +40,13 @@ public class MyApplication extends Application {
         //注册监听事件
         ParseGradeHtml.getInstance();
         ParseTestHtml.getInstance();
-        /*if(!getCertificateSHA1Fingerprint().equals("C5:D2:B4:6F:8C:BC:65:B4:C8:C2:F9:2E:F9:91:59:CD:BE:B2:E7:38")){
+        if(!getCertificateSHA1Fingerprint().equals("C5:D2:B4:6F:8C:BC:65:B4:C8:C2:F9:2E:F9:91:59:CD:BE:B2:E7:38")){
             Toast.makeText(getApplicationContext(), "检测到应用被重新打包，自动退出", Toast.LENGTH_LONG).show();
             //退出应用代码
         } else {
             Toast.makeText(getApplicationContext(), "签名校验通过", Toast.LENGTH_LONG).show();
         }
-        Log.e("reuslt", getCertificateSHA1Fingerprint());*/
+        Log.e("reuslt", getCertificateSHA1Fingerprint());
     }
     public void getSignInfo(){
         try{
